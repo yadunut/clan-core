@@ -56,9 +56,7 @@ def upload_sources(machine: Machine, ssh: Host, upload_inputs: bool) -> str:
     if not has_path_inputs and not upload_inputs:
         # Just copy the flake to the remote machine, we can substitute other inputs there.
         path = flake_data["path"]
-        if machine._class_ == "darwin":
-            remote_program_params = "?remote-program=bash -lc 'exec nix-daemon --stdio'"
-        remote_url = f"ssh-ng://{remote_url_base}{remote_program_params}"
+        remote_url = f"ssh-ng://{remote_url_base}"
         cmd = nix_command(
             [
                 "copy",
